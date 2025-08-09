@@ -16,18 +16,12 @@ public class ChecklistGoal : Goal
 
     public override void RecordEvent()
     {
-        if (_currentCount < _targetCount)
+        _currentCount++;
+        Console.WriteLine($"Event recorded for: {GetName()} ({_currentCount}/{_targetCount})");
+
+        if (IsComplete())
         {
-            _currentCount++;
-            Console.WriteLine($"Event recorded! You have completed this goal {_currentCount}/{_targetCount} times.");
-            if (_currentCount == _targetCount)
-            {
-                Console.WriteLine($"Congratulations! You earned a bonus of {_bonus} points!");
-            }
-        }
-        else
-        {
-            Console.WriteLine("This goal is already completed.");
+            Console.WriteLine($"Goal complete! You earned {_bonus} bonus points!");
         }
     }
 
@@ -45,13 +39,8 @@ public class ChecklistGoal : Goal
         return base.GetPoints();
     }
 
-    public override string GetStatus()
+    public override string GetDetailsString()
     {
-        return $"[{(IsComplete() ? "X" : " ")}] {_shortName} ({_description}) -- Completed {_currentCount}/{_targetCount}";
-    }
-
-    public override string GetStringRepresentation()
-    {
-        return $"ChecklistGoal:{_shortName}|{_description}|{_points}|{_targetCount}|{_bonus}|{_currentCount}";
+        return $"{GetName()} - {GetDescription()} ({_currentCount}/{_targetCount})";
     }
 }

@@ -1,20 +1,19 @@
+using System;
+
 public class EternalGoal : Goal
 {
-    public EternalGoal(string name, string description, int points) 
-        : base(name, description, points) { }
+    public EternalGoal(string name, string description, int points)
+        : base(name, description, points)
+    {
+    }
 
     public override void RecordEvent()
     {
-        Console.WriteLine($"You earned {Points} points!");
+        Console.WriteLine($"Progress recorded for '{GetName()}'. You earned {GetPoints()} points.");
     }
 
-    public override string GetStatus()
+    public override string GetDetailsString()
     {
-        return "[∞]";
-    }
-
-    public override string GetStringRepresentation()
-    {
-        return $"EternalGoal:{Name}|{Description}|{Points}";
+        return $"{GetName()} - {GetDescription()} (Never complete)";
     }
 }
